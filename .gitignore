@@ -18,6 +18,10 @@
 **/.turbo/
 **/coverage/
 **/.parcel-cache/
+**/.nx/cache
+**/tmp
+**/nx
+**/.nx/
 
 **/npm-debug.log*
 **/yarn-debug.log*
