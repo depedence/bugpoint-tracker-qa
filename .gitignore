@@ -1,14 +1,36 @@
-# npm
+# 🔹 Игнорируем зависимости
 **/node_modules/
-**/dist/
-**/build/
 
-# IDE
+# 🔹 Сборка
+**/build/
+**/dist/
+
+# 🔹 Конфигурация окружения
+**/.env
+**/.env.local
+**/.env.development
+**/.env.production
+**/.env.test
+
+# 🔹 Кэш и логи
+**/.next/
+**/.cache/
+**/.turbo/
+**/coverage/
+**/.parcel-cache/
+
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+# 🔹 ОС и IDE
+.DS_Store
+Thumbs.db
 .vscode/
 .idea/
 
-# OS
-.DS_Store
-
-# Logs
-*.log
+# 🔹 Тестовые отчёты
+**/allure-results/
+**/allure-report/
+**/test-results/
+**/reports/
