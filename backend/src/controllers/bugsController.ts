@@ -54,3 +54,33 @@ export const delBug = (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Bug deleted successfully" });
 };
+
+export function editBug(req: Request, res: Response): void {
+    const { id, ...updates } = req.body
+
+    if (!id) {
+        res.status(400).json({ error: "id was not found" })
+    }
+
+    // Проверяем, что есть хотя бы одно поле для обновления
+    if (Object.keys(updates).length === 0) {
+        res.status(400).json({ error: "At least one field is required to update" })
+    }
+
+    const bugs = readBugs() // Читаем старые
+    const bugIndex = bugs.findIndex(bug => bug.id === id)
+
+    if (bugIndex === -1) {
+        res.status(404).json({ error: "Bug not found" })
+    }
+
+    // Обновляем только разрешённые поля
+    const updatedBug = {
+        ...bugs[bugIndex],
+        ...updates,
+        id: bugs[bugIndex].id,   // Защита от изменения id
+        createdAt: bugs[bugIndex].createdAt // Сохраняем оригинальную дату
+    }
+
+    res.status(200).json(updatedBug)
+}

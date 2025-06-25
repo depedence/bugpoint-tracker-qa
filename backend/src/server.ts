@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 })
 
 process.on('uncaughtException', (err) => {
-    console.error('💥 СЕРВЕР УПАЛ:', err)
+    console.error('💥 SERVER DOWN:', err)
 })
 
 // Старт сервера
