@@ -13,4 +13,5 @@ export function readBugs(): Bug[] {
 // Запись багов
 export function writeBugs(bugs: Bug[]): void {
     fs.writeFileSync(bugsPath, JSON.stringify(bugs, null, 2), 'utf-8')
+    console.log('file bugs.json is already updated')    // Временный лог для отладки
 }
