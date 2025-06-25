@@ -32,3 +32,25 @@ export function addBug(req: Request, res: Response): void {
 
     res.status(201).json(newBug) // 201 - создан
 }
+
+export const delBug = (req: Request, res: Response) => {
+    const { id } = req.body;
+
+    if (!id) {
+        res.status(400).json({ error: "Invalid request" });
+        return;
+    }
+
+    const bugs = readBugs();
+    const bugIndex = bugs.findIndex((bug) => bug.id === id);
+
+    if (bugIndex === -1) {
+        res.status(404).json({ error: "Bug not found" });
+        return;
+    }
+
+    bugs.splice(bugIndex, 1);
+    writeBugs(bugs);
+
+    res.status(200).json({ message: "Bug deleted successfully" });
+};
