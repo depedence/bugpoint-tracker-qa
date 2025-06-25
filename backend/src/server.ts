@@ -15,5 +15,5 @@ app.get('/', (req, res) => {
 
 // Старт сервера
 app.listen(PORT, () => {
-    console.log(`Server is runnint at http://localhost:3000:${PORT}`)
+    console.log(`Server is runnint at http://localhost:${PORT}`)
 })
