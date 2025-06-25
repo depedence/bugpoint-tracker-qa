@@ -1,0 +1,21 @@
+meta {
+  name: add bug
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5000/api/bugs
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": "1",
+    "title": "test bug",
+    "description": "test bug description",
+    "status": "open",
+    "priority": "high"
+  }
+}
