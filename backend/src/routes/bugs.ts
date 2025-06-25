@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { getBugs } from "../controllers/bugsController";
+import { addBug, getBugs } from "../controllers/bugsController";
 
 const router = Router()
 
 router.get('/', getBugs)
+router.post('/', addBug)
 
 export default router
