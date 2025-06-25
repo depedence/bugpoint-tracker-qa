@@ -8,12 +8,12 @@ export function getBugs(req: Request, res: Response) {
     res.json(bugs)
 }
 
-export function addBug(req: Request, res: Response) {
+export function addBug(req: Request, res: Response): void {
     const { title, description, status, priority } = req.body
 
     // Проверка: все поля должны быть
     if (!title || !description || !status || !priority) {
-        return res.status(400).json({ error: "Invalid request" })
+        res.status(400).json({ error: "Invalid request" })
     }
 
     // Создание бага
@@ -30,5 +30,5 @@ export function addBug(req: Request, res: Response) {
     bugs.push(newBug)   // Добавляем новый
     writeBugs(bugs) // Сохраняем
 
-    return res.status(201).json(newBug) // 201 - создан
+    res.status(201).json(newBug) // 201 - создан
 }
