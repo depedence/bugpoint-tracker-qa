@@ -254,3 +254,68 @@ h1 {
     transform: translateY(0);
   }
 }
+
+/* === PRIORITY STYLES === */
+.card.high-priority {
+  border-left: 4px solid #ff5630;
+}
+
+.card.medium-priority {
+  border-left: 4px solid #ffab00;
+}
+
+.card.low-priority {
+  border-left: 4px solid #36b37e;
+}
+
+.column {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.column.empty-column::after {
+  content: "Перетащите сюда";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.column.empty {
+  min-height: 100px;
+  position: relative;
+}
+
+.column.empty::after {
+  content: "Перетащите карточку сюда";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+.column.highlight {
+  background-color: rgba(0, 82, 204, 0.05);
+  border: 2px dashed var(--primary);
+}
+
+.card.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.cards-container {
+  min-height: 300px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.column.highlight .cards-container {
+  background-color: rgba(0, 82, 204, 0.05);
+  border: 2px dashed var(--primary);
+}

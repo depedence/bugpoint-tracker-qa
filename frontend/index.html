@@ -30,16 +30,15 @@
     </section>
 
     <section id="columns">
-      <div class="column">
+      <div class="column" id="open-column">
         <h2>Открытые баги</h2>
-        <div id="open-column"></div>
+        <div class="cards-container"></div>
       </div>
-      <div class="column">
+      <div class="column" id="closed-column">
         <h2>Закрытые баги</h2>
-        <div id="closed-column"></div>
+        <div class="cards-container"></div>
       </div>
     </section>
-  </main>
 
   <!-- Кнопка добавления бага -->
   <button id="addBugBtn">+</button>
@@ -68,12 +67,6 @@
       </form>
     </div>
   </div>
-
-  <footer class="app-footer">
-    <div class="container">
-      <p>&copy; 2025 Bugpoint. Все права защищены.</p>
-    </div>
-  </footer>
 
   <script type="module" src="main.ts"></script>
 </body>
