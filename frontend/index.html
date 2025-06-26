@@ -1,27 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BugPoint Tracker</title>
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/components/board.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bugpoint Tracker</title>
+    <!-- Подключаем файл стилей -->
+    <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
-  <header class="header">
-    <div class="logo">BugPoint</div>
-    <nav class="nav">
-      <a href="/" class="nav-link active">Dashboard</a>
-      <a href="/backlog" class="nav-link">Backlog</a>
-      <button class="create-btn">Create</button>
-    </nav>
-  </header>
+    <div class="dashboard">
+        <!-- Шапка дашборда -->
+        <header class="dashboard-header">
+            <h1>Bugpoint Tracker</h1>
+        </header>
 
-  <main class="board-container" id="app">
-    <!-- Доска с колонками -->
-  </main>
+        <!-- Быстрые фильтры -->
+        <section class="quick-filters">
+            <h2>Фильтры</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="todo">К ВЫПОЛНЕНИЮ</button>
+                <button class="filter-btn" data-filter="progress">В РАБОТЕ</button>
+                <button class="filter-btn" data-filter="review">НА ПРОВЕРКЕ</button>
+                <button class="filter-btn" data-filter="done">ВЫПОЛНЕНО</button>
+            </div>
+        </section>
 
-  <script src="/js/lib/api.js" type="module"></script>
-  <script src="/js/pages/board.js" type="module"></script>
+        <!-- Колонки с задачами -->
+        <div class="task-columns">
+            <!-- Колонка "К выполнению" -->
+            <div class="task-column" id="todo-column">
+                <div class="column-header">
+                    <h3>К ВЫПОЛНЕНИЮ <span class="task-count">5</span></h3>
+                </div>
+                <div class="tasks-container" id="todo-tasks">
+                    <!-- Задачи будут добавляться через JavaScript -->
+                </div>
+            </div>
+
+            <!-- Колонка "В работе" -->
+            <div class="task-column" id="progress-column">
+                <div class="column-header">
+                    <h3>В РАБОТЕ <span class="task-count">5</span></h3>
+                </div>
+                <div class="tasks-container" id="progress-tasks">
+                    <!-- Задачи будут добавляться через JavaScript -->
+                </div>
+            </div>
+
+            <!-- Колонка "На проверке" -->
+            <div class="task-column" id="review-column">
+                <div class="column-header">
+                    <h3>НА ПРОВЕРКЕ <span class="task-count">2</span></h3>
+                </div>
+                <div class="tasks-container" id="review-tasks">
+                    <!-- Задачи будут добавляться через JavaScript -->
+                </div>
+            </div>
+
+            <!-- Колонка "Выполнено" -->
+            <div class="task-column" id="done-column">
+                <div class="column-header">
+                    <h3>ВЫПОЛНЕНО <span class="task-count">8</span></h3>
+                </div>
+                <div class="tasks-container" id="done-tasks">
+                    <!-- Задачи будут добавляться через JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключаем JavaScript файл -->
+    <script src="./js/script.js"></script>
 </body>
 </html>
