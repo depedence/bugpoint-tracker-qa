@@ -7,12 +7,16 @@ const closedColumn = document.getElementById('closed-column')!;
 const modal = document.getElementById('modal')!;
 const form = document.getElementById('bugForm') as HTMLFormElement;
 
-document.getElementById('addBugBtn')!.addEventListener('click', () => {
-  modal.classList.remove('hidden');
+// Модалка
+const addBugBtn = document.getElementById("addBugBtn")!;
+const cancelBtn = document.getElementById("cancelBtn")!;
+
+addBugBtn.addEventListener("click", () => {
+  modal.classList.remove("hidden");
 });
 
-document.getElementById('cancelBtn')!.addEventListener('click', () => {
-  modal.classList.add('hidden');
+cancelBtn.addEventListener("click", () => {
+  modal.classList.add("hidden");
 });
 
 form.addEventListener('submit', async (e) => {
@@ -47,6 +51,8 @@ async function loadBugs() {
   bugs.forEach((bug) => {
     const card = document.createElement('div');
     card.className = 'card';
+    card.setAttribute('draggable', 'true');
+    card.setAttribute('data-id', bug.id);
     card.innerHTML = `
       <h4>${bug.title}</h4>
       <p>${bug.description}</p>
@@ -54,9 +60,35 @@ async function loadBugs() {
       <small>${new Date(bug.createdAt).toLocaleDateString()}</small>
     `;
 
+    card.addEventListener('dragstart', (e) => {
+      e.dataTransfer?.setData('text/plain', bug.id);
+    });
+
     if (bug.status === 'open') openColumn.appendChild(card);
     else closedColumn.appendChild(card);
   });
 }
+
+// Drag and Drop Events
+[openColumn, closedColumn].forEach((col) => {
+  col.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+
+  col.addEventListener('drop', async (e) => {
+    e.preventDefault();
+    const bugId = e.dataTransfer?.getData('text/plain');
+    const newStatus = col.id === 'open-column' ? 'open' : 'closed';
+
+    if (bugId) {
+      await fetch(`${API_URL}/${bugId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      loadBugs();
+    }
+  });
+});
 
 loadBugs();
