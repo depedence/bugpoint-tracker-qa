@@ -1,0 +1,58 @@
+body {
+  font-family: sans-serif;
+  background: #f3f4f6;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#columns {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.column {
+  background: white;
+  padding: 10px;
+  width: 300px;
+  border-radius: 8px;
+}
+
+.card {
+  background: #e0e7ff;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+#addBugBtn {
+  display: block;
+  margin: 20px auto;
+}
+
+#modal.hidden {
+  display: none;
+}
+
+#modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 300px;
+  border-radius: 6px;
+}
