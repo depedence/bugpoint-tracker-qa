@@ -54,3 +54,38 @@ export const delBug = (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Bug deleted successfully" });
 };
+
+export function editBug(req: Request, res: Response): void {
+    const { id, ...updates } = req.body
+
+    if (!id) {
+        res.status(400).json({ error: "id was not found" })
+    }
+
+    try {
+        const bugs: Bug[] = readBugs()
+        const bugIndex = bugs.findIndex(bug => bug.id === id)
+
+        if (bugIndex === -1) {
+            res.status(400).json({ error: "Bug not found" })
+        }
+
+        const updatedBug = {
+            ...bugs[bugIndex],
+            ...updates,
+            id: bugs[bugIndex].id,   // Защита от изменения id
+            createdAt: bugs[bugIndex].createdAt // Защита от изменения даты
+        }
+
+        bugs[bugIndex] = updatedBug
+
+        // Проверка записи
+        writeBugs(bugs)
+        console.log('bug updated!') // Лог для отладки
+
+        res.status(200).json(updatedBug)
+    } catch (error) {
+        console.error('error update: ', error)
+        res.status(500).json({ error: "Iternal server error" })
+    }
+}

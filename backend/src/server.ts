@@ -17,7 +17,11 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use(cors()) // Разрешает доступ с фронта
+// Разрешает доступ с фронта
+app.use(cors({
+    origin: 'http://localhost:4000', // URL фронта
+    methods: ['GET', 'POST', 'DELETE']  // Какие методы разрешены
+}))
 
 app.use('/api/bugs', bugsRouter)    // Подключение роутера
 
@@ -27,7 +31,7 @@ app.get('/', (req, res) => {
 })
 
 process.on('uncaughtException', (err) => {
-    console.error('💥 СЕРВЕР УПАЛ:', err)
+    console.error('💥 SERVER DOWN:', err)
 })
 
 // Старт сервера
