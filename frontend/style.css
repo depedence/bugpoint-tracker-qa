@@ -209,7 +209,7 @@ h1 {
   resize: vertical;
 }
 
-.modal-content button[type="submit"] {
+.modal-content button[type='submit'] {
   background-color: var(--primary);
   color: white;
   padding: 10px;
@@ -220,7 +220,7 @@ h1 {
   transition: background 0.2s ease-in-out;
 }
 
-.modal-content button[type="submit"]:hover {
+.modal-content button[type='submit']:hover {
   background-color: var(--primary-hover);
 }
 
@@ -274,7 +274,7 @@ h1 {
 }
 
 .column.empty-column::after {
-  content: "Перетащите сюда";
+  content: 'Перетащите сюда';
   position: absolute;
   top: 50%;
   left: 0;
@@ -290,7 +290,7 @@ h1 {
 }
 
 .column.empty::after {
-  content: "Перетащите карточку сюда";
+  content: 'Перетащите карточку сюда';
   position: absolute;
   top: 50%;
   left: 0;
@@ -405,7 +405,9 @@ h1 {
   font-size: 14px;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .toast.show {
