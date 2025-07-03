@@ -14,7 +14,11 @@
 
    `npm install`
 
-4. Команды запуска
+4. Установите Chromium для Playwright тестов
+
+   `npx playwright install`
+
+5. Команды запуска
 
    `npm run start:backend` - запуск бэкэнда
 

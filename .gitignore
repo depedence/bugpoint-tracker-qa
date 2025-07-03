@@ -1,5 +1,7 @@
 # Зависимости
 node_modules
+
+# Хранение багов
 /backend/data
 
 # Playwright
@@ -7,3 +9,6 @@ node_modules
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Allure
+allure-results
