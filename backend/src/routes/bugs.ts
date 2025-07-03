@@ -1,11 +1,11 @@
-import { Router } from "express";
-import { addBug, delBug, editBug, getBugs } from "../controllers/bugsController";
+import { Router } from 'express';
+import { addBug, delBug, editBug, getBugs } from '../controllers/bugsController';
 
-const router = Router()
+const router = Router();
 
-router.get('/', getBugs)
-router.post('/', addBug)
-router.delete('/', delBug)
-router.patch('/', editBug)
+router.get('/', getBugs);
+router.post('/', addBug);
+router.delete('/', delBug);
+router.patch('/', editBug);
 
-export default router
+export default router;
