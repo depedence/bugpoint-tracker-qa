@@ -19,9 +19,9 @@ async function clickAdd2(page) {
 
 test.describe('Проверка на добавление бага в колонку "Открытые баги"', () => {
   test.beforeEach('Переход на необходимый URL', async ({ page }) => {
+    console.log(`[${new Date().toISOString()}] Test started`);
     await page.goto('/');
     await clickAdd(page);
-    console.log(`[${new Date().toISOString()}] Test started`);
   });
 
   test('Создание открытого тикета с багом низкого приоритета', async ({ page }) => {
@@ -50,6 +50,7 @@ test.describe('Проверка на добавление бага в колон
 
 test.describe('Проверка на добавление бага в колонку "Закрытые баги"', () => {
   test.beforeEach('Переход на необходимый URL', async ({ page }) => {
+    console.log(`[${new Date().toISOString()}] Test started`);
     await page.goto('/');
     await clickAdd2(page);
   });

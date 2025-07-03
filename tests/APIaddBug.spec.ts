@@ -4,6 +4,7 @@ let apiContext;
 
 test.describe('API Проверка на добавление бага в колонку "Открытые баги', () => {
   test.beforeAll(async ({ playwright }) => {
+    console.log(`[${new Date().toISOString()}] Test started`);
     apiContext = await playwright.request.newContext({
       baseURL: 'http://localhost:5000',
     });
