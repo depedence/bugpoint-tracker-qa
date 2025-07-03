@@ -7,26 +7,44 @@ const closedColumn = document.getElementById('closed-column')!;
 const modal = document.getElementById('modal')!;
 const form = document.getElementById('bugForm') as HTMLFormElement;
 
-interface HTMLElementEventMap {
-  dragstart: DragEvent,
-  dragover: DragEvent,
-  drop: DragEvent
+// Уведомление
+function showToast(message: string) {
+  const toast = document.getElementById('toast')!;
+  toast.textContent = message;
+  toast.classList.add('show');
+  toast.classList.remove('hidden');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+    }, 300);
+  }, 2000);
 }
 
-// Модалка
-const addBugBtn = document.getElementById("addBugBtn")!;
-const cancelBtn = document.getElementById("cancelBtn")!;
+// Типы для drag-n-drop
+interface HTMLElementEventMap {
+  dragstart: DragEvent;
+  dragover: DragEvent;
+  drop: DragEvent;
+}
 
-addBugBtn.addEventListener("click", () => {
-  modal.classList.remove("hidden");
+// Модалка добавления бага
+const addBugBtn = document.getElementById('addBugBtn')!;
+const cancelBtn = document.getElementById('cancelBtn')!;
+
+addBugBtn.addEventListener('click', () => {
+  modal.classList.remove('hidden');
 });
 
-cancelBtn.addEventListener("click", () => {
-  modal.classList.add("hidden");
+cancelBtn.addEventListener('click', () => {
+  modal.classList.add('hidden');
 });
 
+// Отправка формы
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
   const newBug = {
     title: (document.getElementById('title') as HTMLInputElement).value,
     description: (document.getElementById('description') as HTMLTextAreaElement).value,
@@ -47,7 +65,7 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-// Добавим стили для drag-and-drop
+// Стили для drag-n-drop
 function setupDragStyles() {
   const style = document.createElement('style');
   style.textContent = `
@@ -94,7 +112,7 @@ function setupDragStyles() {
   document.head.appendChild(style);
 }
 
-// Функция для обновления состояния пустых колонок
+// Обновление состояния колонок
 function updateEmptyColumns() {
   const openHasCards = openColumn.querySelectorAll('.card').length > 0;
   const closedHasCards = closedColumn.querySelectorAll('.card').length > 0;
@@ -103,6 +121,7 @@ function updateEmptyColumns() {
   closedColumn.classList.toggle('empty', !closedHasCards);
 }
 
+// Загрузка багов
 async function loadBugs() {
   const res = await fetch(API_URL);
   const bugs: Bug[] = await res.json();
@@ -126,71 +145,87 @@ async function loadBugs() {
       <small>${new Date(bug.createdAt).toLocaleDateString()}</small>
     `;
 
-    card.addEventListener('dragstart', function(this: HTMLElement, e: Event) {
-      const ev = e as DragEvent; // Явное приведение типа
+    // Drag events
+    card.addEventListener('dragstart', function (this: HTMLElement, e: Event) {
+      const ev = e as DragEvent;
       this.classList.add('dragging');
       ev.dataTransfer?.setData('text/plain', bug.id);
     });
 
-    card.addEventListener('dragend', function(this: HTMLElement) {
+    card.addEventListener('dragend', function (this: HTMLElement) {
       this.classList.remove('dragging');
     });
 
+    // Вставка в нужную колонку
     if (bug.status === 'open') {
       openContainer.appendChild(card);
     } else {
       closedContainer.appendChild(card);
     }
 
-    const deleteBtn = card.querySelector('.delete-btn')!
-    deleteBtn.addEventListener('click', async (e) => {
-      e.stopPropagation()
-      const bugId = (e.target as HTMLElement).getAttribute('data-id')
-      if (!bugId) return
+    // Кнопка удаления
+    const deleteBtn = card.querySelector('.delete-btn')!;
+    deleteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const bugId = (e.target as HTMLElement).getAttribute('data-id');
+      if (!bugId) return;
 
-      const confirmed = confirm('Вы уверены, что хотите удалить этот тикет?')
-      if (!confirmed) return
+      const confirmModal = document.getElementById('confirmModal')!;
+      const confirmDeleteBtn = document.getElementById('confirmDeleteBtn')!;
+      const cancelDeleteBtn = document.getElementById('cancelDeleteBtn')!;
+      confirmModal.classList.remove('hidden');
 
-      try {
-        const res = await fetch('http://localhost:5000/api/bugs', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ id: bugId })
-        })
+      const onConfirm = async () => {
+        try {
+          const res = await fetch(API_URL, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: bugId }),
+          });
 
-        if (res.ok) {
-          card.remove()
-          updateEmptyColumns()
-        } else {
-          alert('Ошибка при удалении бага')
+          if (res.ok) {
+            card.remove();
+            updateEmptyColumns();
+            showToast('Тикет успешно удалён');
+          } else {
+            alert('Ошибка при удалении бага');
+          }
+        } catch (error) {
+          console.error('Ошибка при удалении бага:', error);
+          alert('Ошибка при отправке запроса');
+        } finally {
+          confirmModal.classList.add('hidden');
+          confirmDeleteBtn.removeEventListener('click', onConfirm);
         }
-      } catch (error) {
-        console.error('Ошибка при удалении бага: ', error)
-        alert('Ошибка при отправке запроса на сервер')
-      }
-    })
+      };
+
+      confirmDeleteBtn.addEventListener('click', onConfirm);
+
+      cancelDeleteBtn.onclick = () => {
+        confirmModal.classList.add('hidden');
+        confirmDeleteBtn.removeEventListener('click', onConfirm);
+      };
+    });
   });
 }
 
-// Инициализация стилей для drag-and-drop
+// Drag-and-drop инициализация
 setupDragStyles();
 
 [openColumn, closedColumn].forEach((column) => {
   const dropZone = column.querySelector('.cards-container')!;
 
-  dropZone.addEventListener('dragover', function(this: HTMLElement, e: Event) {
+  dropZone.addEventListener('dragover', function (this: HTMLElement, e: Event) {
     const ev = e as DragEvent;
     ev.preventDefault();
     column.classList.add('highlight');
   });
 
-  dropZone.addEventListener('dragleave', function(this: HTMLElement) {
+  dropZone.addEventListener('dragleave', function () {
     column.classList.remove('highlight');
   });
 
-  dropZone.addEventListener('drop', async function(this: HTMLElement, e: Event) {
+  dropZone.addEventListener('drop', async function (this: HTMLElement, e: Event) {
     const ev = e as DragEvent;
     ev.preventDefault();
     column.classList.remove('highlight');
@@ -209,16 +244,18 @@ setupDragStyles();
       await fetch(API_URL, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: bugId, status: newStatus })
+        body: JSON.stringify({ id: bugId, status: newStatus }),
       });
     } catch (error) {
       console.error('Ошибка:', error);
-      const originalContainer = newStatus === 'open'
-        ? closedColumn.querySelector('.cards-container')!
-        : openColumn.querySelector('.cards-container')!;
+      const originalContainer =
+        newStatus === 'open'
+          ? closedColumn.querySelector('.cards-container')!
+          : openColumn.querySelector('.cards-container')!;
       originalContainer.appendChild(card);
     }
   });
 });
 
+// Первая загрузка
 loadBugs();

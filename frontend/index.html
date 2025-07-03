@@ -69,6 +69,21 @@
     </div>
   </div>
 
+  <!-- Модалка подтверждения удаления -->
+  <div id="confirmModal" class="hidden">
+    <div class="modal-content">
+      <h3>Удалить тикет?</h3>
+      <p>Вы уверены, что хотите удалить этот тикет?</p>
+      <div class="modal-actions">
+        <button id="confirmDeleteBtn" class="danger">Удалить</button>
+        <button id="cancelDeleteBtn">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Уведомление -->
+  <div id="toast" class="toast hidden">Тикет успешно удалён</div>
+
   <script type="module" src="main.ts"></script>
 </body>
 </html>
