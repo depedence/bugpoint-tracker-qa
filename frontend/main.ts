@@ -142,16 +142,34 @@ async function loadBugs() {
       closedContainer.appendChild(card);
     }
 
-    const deleteBtn = card.querySelector('delete-btn')!
+    const deleteBtn = card.querySelector('.delete-btn')!
     deleteBtn.addEventListener('click', async (e) => {
       e.stopPropagation()
       const bugId = (e.target as HTMLElement).getAttribute('data-id')
       if (!bugId) return
 
-      // Удаление с UI
-      card.remove()
+      const confirmed = confirm('Вы уверены, что хотите удалить этот тикет?')
+      if (!confirmed) return
 
-      // Потом будет связь с бэком
+      try {
+        const res = await fetch('http://localhost:5000/api/bugs', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id: bugId })
+        })
+
+        if (res.ok) {
+          card.remove()
+          updateEmptyColumns()
+        } else {
+          alert('Ошибка при удалении бага')
+        }
+      } catch (error) {
+        console.error('Ошибка при удалении бага: ', error)
+        alert('Ошибка при отправке запроса на сервер')
+      }
     })
   });
 }
