@@ -119,6 +119,7 @@ async function loadBugs() {
     card.setAttribute('draggable', 'true');
     card.setAttribute('data-id', bug.id);
     card.innerHTML = `
+      <button class="delete-btn" data-id="${bug.id}">x</button>
       <h4>${bug.title}</h4>
       <p>${bug.description}</p>
       <small>Приоритет: ${bug.priority}</small><br/>
@@ -140,6 +141,18 @@ async function loadBugs() {
     } else {
       closedContainer.appendChild(card);
     }
+
+    const deleteBtn = card.querySelector('delete-btn')!
+    deleteBtn.addEventListener('click', async (e) => {
+      e.stopPropagation()
+      const bugId = (e.target as HTMLElement).getAttribute('data-id')
+      if (!bugId) return
+
+      // Удаление с UI
+      card.remove()
+
+      // Потом будет связь с бэком
+    })
   });
 }
 

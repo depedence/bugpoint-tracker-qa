@@ -319,3 +319,24 @@ h1 {
   background-color: rgba(0, 82, 204, 0.05);
   border: 2px dashed var(--primary);
 }
+
+.card {
+  position: relative;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 2;
+}
+
+.delete-btn:hover {
+  color: #ff5630;
+}
