@@ -6,12 +6,15 @@ async function clickAdd(page) {
 
   await page.getByRole('textbox', { name: 'Название бага' }).fill('Тестовый баг');
   await page.getByRole('textbox', { name: 'Описание бага' }).fill('Описание тестового бага');
+
+  await expect(page.getByRole('button', { name: 'Сохранить' })).toBeVisible();
 }
 
 async function clickAdd2(page) {
   await page.getByRole('button', { name: '+' }).click();
   await expect(page.getByRole('heading', { name: 'Добавить баг' })).toBeVisible();
 
+  await expect(page.getByRole('button', { name: 'Сохранить' })).toBeVisible();
   await page.getByRole('textbox', { name: 'Название бага' }).fill('Тестовый баг');
   await page.getByRole('textbox', { name: 'Описание бага' }).fill('Описание тестового бага');
   await page.locator('#status').selectOption('closed');
