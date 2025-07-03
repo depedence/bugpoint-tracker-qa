@@ -4,45 +4,86 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bugpoint Tracker</title>
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="src/logo.jpg" type="image/x-icon">
 </head>
 <body>
-  <h1>🐞 Bugpoint Tracker</h1>
-
-  <div id="columns">
-    <div class="column" data-status="open">
-      <h2>🟢 Открытые</h2>
-      <div class="cards" id="open-column"></div>
+  <header class="app-header">
+    <div class="container">
+      <h1>Bugpoint Tracker</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Проект</a></li>
+          <li><a href="#">Документация</a></li>
+          <li><a href="https://t.me/bugpointqa">О нас</a></li>
+        </ul>
+      </nav>
     </div>
-    <div class="column" data-status="closed">
-      <h2>🔒 Закрытые</h2>
-      <div class="cards" id="closed-column"></div>
-    </div>
-  </div>
+  </header>
 
-  <button id="addBugBtn">+ Добавить баг</button>
+  <main>
+    <section class="overview">
+      <div class="container">
+        <h2>📋 Общая информация</h2>
+        <p>Этот инструмент предназначен для отслеживания багов в вашем проекте. Вы можете добавлять, изменять и закрывать задачи. Используйте drag-and-drop, чтобы изменить статус бага.</p>
+        <p><strong>Совет:</strong> баги с высоким приоритетом выделены красным цветом. Следите за ними внимательно!</p>
+      </div>
+    </section>
 
+    <section id="columns">
+      <div class="column" id="open-column">
+        <h2>Открытые баги</h2>
+        <div class="cards-container"></div>
+      </div>
+      <div class="column" id="closed-column">
+        <h2>Закрытые баги</h2>
+        <div class="cards-container"></div>
+      </div>
+    </section>
+
+  <!-- Кнопка добавления бага -->
+  <button id="addBugBtn">+</button>
+
+  <!-- Модальное окно -->
   <div id="modal" class="hidden">
     <div class="modal-content">
-      <h3>Новый баг</h3>
+      <h3>Добавить баг</h3>
       <form id="bugForm">
-        <input type="text" id="title" placeholder="Название" required />
-        <textarea id="description" placeholder="Описание" required></textarea>
+        <input type="text" id="title" placeholder="Название бага" required />
+        <textarea id="description" placeholder="Описание бага" rows="4" required></textarea>
+
         <select id="status">
-          <option value="open">🟢 Открыт</option>
-          <option value="closed">🔒 Закрыт</option>
+          <option value="open">Открыт</option>
+          <option value="closed">Закрыт</option>
         </select>
+
         <select id="priority">
-          <option value="low">Низкий</option>
-          <option value="medium">Средний</option>
-          <option value="high">Высокий</option>
+          <option value="low">Низкий приоритет</option>
+          <option value="medium">Средний приоритет</option>
+          <option value="high">Высокий приоритет</option>
         </select>
+
         <button type="submit">Сохранить</button>
         <button type="button" id="cancelBtn">Отмена</button>
       </form>
     </div>
   </div>
 
-  <script type="module" src="./main.ts"></script>
+  <!-- Модалка подтверждения удаления -->
+  <div id="confirmModal" class="hidden">
+    <div class="modal-content">
+      <h3>Удалить тикет?</h3>
+      <p>Вы уверены, что хотите удалить этот тикет?</p>
+      <div class="modal-actions">
+        <button id="confirmDeleteBtn" class="danger">Удалить</button>
+        <button id="cancelDeleteBtn">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Уведомление -->
+  <div id="toast" class="toast hidden">Тикет успешно удалён</div>
+
+  <script type="module" src="main.ts"></script>
 </body>
 </html>
