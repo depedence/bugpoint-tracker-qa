@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/depedence/bugpoint-tracker-qa#readme",
   "devDependencies": {
+    "@playwright/test": "^1.53.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/morgan": "^1.9.10",
