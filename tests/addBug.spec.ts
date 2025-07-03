@@ -21,6 +21,7 @@ test.describe('Проверка на добавление бага в колон
   test.beforeEach('Переход на необходимый URL', async ({ page }) => {
     await page.goto('/');
     await clickAdd(page);
+    console.log(`[${new Date().toISOString()}] Test started`);
   });
 
   test('Создание открытого тикета с багом низкого приоритета', async ({ page }) => {
