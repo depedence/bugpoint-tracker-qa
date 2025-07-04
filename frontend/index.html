@@ -41,10 +41,37 @@
       </div>
     </section>
 
-  <!-- Кнопка добавления бага -->
+  <!-- Модалка редактирования -->
+  <div id="editModal" class="hidden">
+    <div class="modal-content">
+      <h3>Редактировать баг</h3>
+      <form id="editForm">
+        <input type="hidden" id="editId" />
+
+        <input type="text" id="editTitle" placeholder="Название бага" required />
+        <textarea id="editDescription" placeholder="Описание бага" rows="4" required></textarea>
+
+        <select id="editStatus">
+          <option value="open">Открыт</option>
+          <option value="closed">Закрыт</option>
+        </select>
+
+        <select id="editPriority">
+          <option value="low">Низкий приоритет</option>
+          <option value="medium">Средний приоритет</option>
+          <option value="high">Высокий приоритет</option>
+        </select>
+
+        <button type="submit">Сохранить</button>
+        <button type="button" id="cancelEditBtn">Отмена</button>
+      </form>
+      </div>
+  </div>
+
+
+  <!-- Модальное окно добавления бага -->
   <button id="addBugBtn">+</button>
 
-  <!-- Модальное окно -->
   <div id="modal" class="hidden">
     <div class="modal-content">
       <h3>Добавить баг</h3>

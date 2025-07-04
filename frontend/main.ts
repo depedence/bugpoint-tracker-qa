@@ -7,7 +7,10 @@ const closedColumn = document.getElementById('closed-column')!;
 const modal = document.getElementById('modal')!;
 const form = document.getElementById('bugForm') as HTMLFormElement;
 
-// Уведомление
+const editModal = document.getElementById('editModal')!;
+const editForm = document.getElementById('editForm') as HTMLFormElement;
+const cancelEditBtn = document.getElementById('cancelEditBtn')!;
+
 function showToast(message: string) {
   const toast = document.getElementById('toast')!;
   toast.textContent = message;
@@ -22,14 +25,12 @@ function showToast(message: string) {
   }, 2000);
 }
 
-// Типы для drag-n-drop
 interface HTMLElementEventMap {
   dragstart: DragEvent;
   dragover: DragEvent;
   drop: DragEvent;
 }
 
-// Модалка добавления бага
 const addBugBtn = document.getElementById('addBugBtn')!;
 const cancelBtn = document.getElementById('cancelBtn')!;
 
@@ -41,10 +42,8 @@ cancelBtn.addEventListener('click', () => {
   modal.classList.add('hidden');
 });
 
-// Отправка формы
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const newBug = {
     title: (document.getElementById('title') as HTMLInputElement).value,
     description: (document.getElementById('description') as HTMLTextAreaElement).value,
@@ -65,7 +64,6 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-// Стили для drag-n-drop
 function setupDragStyles() {
   const style = document.createElement('style');
   style.textContent = `
@@ -112,7 +110,6 @@ function setupDragStyles() {
   document.head.appendChild(style);
 }
 
-// Обновление состояния колонок
 function updateEmptyColumns() {
   const openHasCards = openColumn.querySelectorAll('.card').length > 0;
   const closedHasCards = closedColumn.querySelectorAll('.card').length > 0;
@@ -121,7 +118,6 @@ function updateEmptyColumns() {
   closedColumn.classList.toggle('empty', !closedHasCards);
 }
 
-// Загрузка багов
 async function loadBugs() {
   const res = await fetch(API_URL);
   const bugs: Bug[] = await res.json();
@@ -139,13 +135,13 @@ async function loadBugs() {
     card.setAttribute('data-id', bug.id);
     card.innerHTML = `
       <button class="delete-btn" data-id="${bug.id}">x</button>
+      <button class="editBtn" data-id="${bug.id}">Редактировать</button>
       <h4>${bug.title}</h4>
       <p>${bug.description}</p>
       <small>Приоритет: ${bug.priority}</small><br/>
       <small>${new Date(bug.createdAt).toLocaleDateString()}</small>
     `;
 
-    // Drag events
     card.addEventListener('dragstart', function (this: HTMLElement, e: Event) {
       const ev = e as DragEvent;
       this.classList.add('dragging');
@@ -156,14 +152,12 @@ async function loadBugs() {
       this.classList.remove('dragging');
     });
 
-    // Вставка в нужную колонку
     if (bug.status === 'open') {
       openContainer.appendChild(card);
     } else {
       closedContainer.appendChild(card);
     }
 
-    // Кнопка удаления
     const deleteBtn = card.querySelector('.delete-btn')!;
     deleteBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -200,16 +194,32 @@ async function loadBugs() {
       };
 
       confirmDeleteBtn.addEventListener('click', onConfirm);
-
       cancelDeleteBtn.onclick = () => {
         confirmModal.classList.add('hidden');
         confirmDeleteBtn.removeEventListener('click', onConfirm);
       };
     });
+
+    const editBtn = card.querySelector('.editBtn')!;
+    editBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const editId = document.getElementById('editId') as HTMLInputElement;
+      const editTitle = document.getElementById('editTitle') as HTMLInputElement;
+      const editDescription = document.getElementById('editDescription') as HTMLTextAreaElement;
+      const editPriority = document.getElementById('editPriority') as HTMLSelectElement;
+      const editStatus = document.getElementById('editStatus') as HTMLSelectElement;
+
+      editId.value = bug.id;
+      editTitle.value = bug.title;
+      editDescription.value = bug.description;
+      editPriority.value = bug.priority;
+      editStatus.value = bug.status;
+
+      editModal.classList.remove('hidden');
+    });
   });
 }
 
-// Drag-and-drop инициализация
 setupDragStyles();
 
 [openColumn, closedColumn].forEach((column) => {
@@ -221,7 +231,7 @@ setupDragStyles();
     column.classList.add('highlight');
   });
 
-  dropZone.addEventListener('dragleave', function () {
+  dropZone.addEventListener('dragleave', function (this: HTMLElement) {
     column.classList.remove('highlight');
   });
 
@@ -257,5 +267,35 @@ setupDragStyles();
   });
 });
 
-// Первая загрузка
+editForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const id = (document.getElementById('editId') as HTMLInputElement).value;
+  const updatedBug = {
+    id,
+    title: (document.getElementById('editTitle') as HTMLInputElement).value,
+    description: (document.getElementById('editDescription') as HTMLTextAreaElement).value,
+    priority: (document.getElementById('editPriority') as HTMLSelectElement).value,
+    status: (document.getElementById('editStatus') as HTMLSelectElement).value,
+  };
+
+  const res = await fetch(API_URL, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updatedBug),
+  });
+
+  if (res.ok) {
+    editModal.classList.add('hidden');
+    showToast('Тикет обновлён');
+    loadBugs();
+  } else {
+    alert('Ошибка при обновлении тикета');
+  }
+});
+
+cancelEditBtn.addEventListener('click', () => {
+  editModal.classList.add('hidden');
+});
+
 loadBugs();
