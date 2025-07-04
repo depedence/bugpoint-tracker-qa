@@ -278,7 +278,6 @@ h1 {
 }
 
 .column.empty-column::after {
-  content: 'Перетащите сюда';
   position: absolute;
   top: 50%;
   left: 0;
@@ -294,7 +293,6 @@ h1 {
 }
 
 .column.empty::after {
-  content: 'Перетащите карточку сюда';
   position: absolute;
   top: 50%;
   left: 0;
@@ -459,4 +457,52 @@ h1 {
 
 .toast.show {
   opacity: 1;
+}
+
+/* Общий стиль для кнопок */
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Кнопка Отмена — серая */
+button.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+button.cancel-btn:hover {
+  background-color: #cfcfcf;
+}
+
+/* Кнопка Сохранить — зелёная */
+button.save-btn {
+  background-color: #007b4f;
+  color: white;
+}
+
+button.save-btn:hover {
+  background-color: #005d3a;
+}
+
+/* Кнопка редактирования на карточке */
+button.edit-btn {
+  background-color: transparent;
+  color: #007bff;
+  border: none;
+  font-size: 13px;
+  padding: 0;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+button.edit-btn:hover {
+  text-decoration: underline;
 }

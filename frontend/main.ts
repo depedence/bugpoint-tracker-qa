@@ -81,7 +81,6 @@ function setupDragStyles() {
       position: relative;
     }
     .column.empty::after {
-      content: "Перетащите карточку сюда";
       position: absolute;
       top: 50%;
       left: 0;
@@ -135,7 +134,7 @@ async function loadBugs() {
     card.setAttribute('data-id', bug.id);
     card.innerHTML = `
       <button class="delete-btn" data-id="${bug.id}">x</button>
-      <button class="editBtn" data-id="${bug.id}">Редактировать</button>
+      <button class="editBtn" data-id="${bug.id}">🖉</button>
       <h4>${bug.title}</h4>
       <p>${bug.description}</p>
       <small>Приоритет: ${bug.priority}</small><br/>
