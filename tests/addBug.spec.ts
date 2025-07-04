@@ -30,7 +30,7 @@ test.describe('Проверка на добавление бага в колон
   test('Создание открытого тикета с багом низкого приоритета', async ({ page }) => {
     await page.getByRole('button', { name: 'Сохранить' }).click();
     await expect(
-      page.getByText('x Тестовый баг Описание тестового бага Приоритет: low 7/3/')
+      page.getByText('x Тестовый баг Описание тестового бага Приоритет: low')
     ).toBeVisible();
   });
 
@@ -38,7 +38,7 @@ test.describe('Проверка на добавление бага в колон
     await page.locator('#priority').selectOption('medium');
     await page.getByRole('button', { name: 'Сохранить' }).click();
     await expect(
-      page.getByText('x Тестовый баг Описание тестового бага Приоритет: medium 7/3/')
+      page.getByText('x Тестовый баг Описание тестового бага Приоритет: medium')
     ).toBeVisible();
   });
 
@@ -46,7 +46,7 @@ test.describe('Проверка на добавление бага в колон
     await page.locator('#priority').selectOption('high');
     await page.getByRole('button', { name: 'Сохранить' }).click();
     await expect(
-      page.getByText('x Тестовый баг Описание тестового бага Приоритет: high 7/3/')
+      page.getByText('x Тестовый баг Описание тестового бага Приоритет: high')
     ).toBeVisible();
   });
 });
@@ -61,7 +61,9 @@ test.describe('Проверка на добавление бага в колон
   test('Создание закрытого тикета с багом низкого приоритета', async ({ page }) => {
     await page.getByRole('button', { name: 'Сохранить' }).click();
     await expect(
-      page.getByText('x Тестовый баг Описание тестового бага Приоритет: low 7/3/')
+      page
+        .locator('#closed-column')
+        .getByText('x Тестовый баг Описание тестового бага Приоритет: low')
     ).toBeVisible();
   });
 
@@ -69,7 +71,9 @@ test.describe('Проверка на добавление бага в колон
     await page.locator('#priority').selectOption('medium');
     await page.getByRole('button', { name: 'Сохранить' }).click();
     await expect(
-      page.getByText('x Тестовый баг Описание тестового бага Приоритет: medium 7/3/')
+      page
+        .locator('#closed-column')
+        .getByText('x Тестовый баг Описание тестового бага Приоритет: medium')
     ).toBeVisible();
   });
 
@@ -77,7 +81,9 @@ test.describe('Проверка на добавление бага в колон
     await page.locator('#priority').selectOption('high');
     await page.getByRole('button', { name: 'Сохранить' }).click();
     await expect(
-      page.getByText('x Тестовый баг Описание тестового бага Приоритет: high 7/3/')
+      page
+        .locator('#closed-column')
+        .getByText('x Тестовый баг Описание тестового бага Приоритет: high')
     ).toBeVisible();
   });
 });
