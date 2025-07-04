@@ -12,7 +12,7 @@ export default defineConfig({
   // workers: process.env.CI ? 1 : undefined,
   workers: 1,
 
-  reporter: 'html',
+  reporter: [['list'], ['allure-playwright']],
 
   use: {
     baseURL: 'http://localhost:4000',
@@ -23,7 +23,10 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], headless: false },
     },
   ],
+
+  timeout: 10000,
+  expect: { timeout: 10000 },
 });

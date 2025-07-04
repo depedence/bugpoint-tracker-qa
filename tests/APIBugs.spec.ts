@@ -33,7 +33,7 @@ test.describe('API Проверка на добавление бага в кол
     // Проверка на то, что тикет появился в UI
     await page.goto('/');
     await expect(
-      page.getByText('x API Тестовый баг API Описание тестового бага Приоритет: low 7/3/')
+      page.getByText('x API Тестовый баг API Описание тестового бага Приоритет: low')
     ).toBeVisible();
 
     const body1 = await addBug1.json();

@@ -1,6 +1,37 @@
-# realworld-qa-lab
+# bugpoint Tracker - баг трекер для QA инженеров
 
-1. `npm install`
-2. create data/bugs.json
-3. `npm run dev`
-4. `server running on localhost:${PORT}`
+### Запуск проекта
+
+1. Скопируйте себе на устройство репозиторий
+
+   `git clone https://github.com/depedence/bugpoint-tracker-qa.git`
+
+2. Создайте файл, куда будут сохраняться созданные тикеты
+
+   `touch  backend/data/bugs.json`
+
+3. Установите зависимости
+
+   `npm install`
+
+4. Установите Chromium для Playwright тестов
+
+   `npx playwright install`
+
+5. Команды запуска
+
+   `npm run start:backend` - запуск бэкэнда
+
+   `npm run start:frontend` - запуск фронтэнда
+
+   `npm run dev` - запуск всего проекта
+
+## Функции и возможности bugpoint Tracker
+
+В основном направлен на то, чтобы показать hard skills QA, но также может нести в себе
+полезные свойства.
+
+- Создание тикета (название, описание, приоритет и статус)
+- Удаление тикета
+- drag-and-drop перемещение тикера в другой столбец (изменение его статуса)
+- Редактирование тикета в модалке
