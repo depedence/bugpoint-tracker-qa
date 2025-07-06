@@ -134,7 +134,7 @@ async function loadBugs() {
     card.setAttribute('data-id', bug.id);
     card.innerHTML = `
       <button class="delete-btn" data-id="${bug.id}">x</button>
-      <button class="editBtn" data-id="${bug.id}">🖉</button>
+      <button class="editBtn" data-id="${bug.id}">Редактировать</button>
       <h4>${bug.title}</h4>
       <p>${bug.description}</p>
       <small>Приоритет: ${bug.priority}</small><br/>
