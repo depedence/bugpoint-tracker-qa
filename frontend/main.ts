@@ -1,5 +1,4 @@
 import { Bug } from '../backend/src/models/bug';
-import './style.css';
 
 const API_URL = 'http://localhost:5000/api/bugs';
 
@@ -135,7 +134,7 @@ async function loadBugs() {
     card.setAttribute('data-id', bug.id);
     card.innerHTML = `
       <button class="delete-btn" data-id="${bug.id}">x</button>
-      <button class="edit-btn" data-id="${bug.id}">Редактировать</button>
+      <button class="editBtn" data-id="${bug.id}">🖉</button>
       <h4>${bug.title}</h4>
       <p>${bug.description}</p>
       <small>Приоритет: ${bug.priority}</small><br/>
