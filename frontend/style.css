@@ -99,12 +99,30 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+  transition: all 0.2s ease;
 }
 
 .column h2 {
   margin: 0 0 10px;
   font-size: 20px;
   color: var(--primary);
+}
+
+.column.empty::after {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  transform: translateY(-50%);
+}
+
+.column.highlight {
+  background-color: rgba(0, 82, 204, 0.05);
+  border: 2px dashed var(--primary);
 }
 
 /* === CARDS === */
@@ -114,6 +132,7 @@ h1 {
   background-color: #fff;
   box-shadow: var(--shadow);
   transition: transform 0.2s ease;
+  position: relative;
 }
 
 .card:hover {
@@ -134,6 +153,137 @@ h1 {
 .card small {
   font-size: 12px;
   color: var(--muted);
+}
+
+.card.high-priority {
+  border-left: 4px solid #ff5630;
+}
+
+.card.medium-priority {
+  border-left: 4px solid #ffab00;
+}
+
+.card.low-priority {
+  border-left: 4px solid #36b37e;
+}
+
+.card.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+/* === BUTTONS === */
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+button.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+button.cancel-btn:hover {
+  background-color: #cfcfcf;
+}
+
+button.save-btn {
+  background-color: #007b4f;
+  color: white;
+}
+
+button.save-btn:hover {
+  background-color: #005d3a;
+}
+
+button.edit-btn {
+  background-color: transparent;
+  color: #007bff;
+  font-size: 13px;
+  padding: 0;
+  margin-left: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+button.edit-btn:hover {
+  text-decoration: underline;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 2;
+}
+
+.delete-btn:hover {
+  color: #ff5630;
+}
+
+/* === MODALS === */
+.hidden {
+  display: none !important;
+}
+
+#modal,
+#editModal,
+#confirmModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: var(--radius);
+  width: 400px;
+  max-width: 90%;
+  box-shadow: var(--shadow);
+  animation: popIn 0.2s ease;
+  position: relative;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  font-size: 22px;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  resize: vertical;
 }
 
 /* === ADD BUTTON === */
@@ -161,212 +311,9 @@ h1 {
   background-color: var(--primary-hover);
 }
 
-/* === MODAL === */
-#modal.hidden {
-  display: none;
-}
-
-.hidden {
-  display: none !important;
-}
-
-#modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-}
-
-.modal-content {
-  background: var(--card-bg);
-  padding: 24px;
-  border-radius: var(--radius);
-  width: 400px;
-  max-width: 90%;
-  box-shadow: var(--shadow);
-  animation: fadeIn 0.2s ease;
-}
-
-.modal-content h3 {
-  margin-top: 0;
-  font-size: 22px;
-  margin-bottom: 16px;
-  color: var(--primary);
-}
-
-.modal-content form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.modal-content input,
-.modal-content textarea,
-.modal-content select {
-  padding: 10px;
-  font-size: 14px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  resize: vertical;
-}
-
-.modal-content button[type='submit'] {
-  background-color: var(--primary);
-  color: white;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: background 0.2s ease-in-out;
-}
-
-.modal-content button[type='submit']:hover {
-  background-color: var(--primary-hover);
-}
-
-.modal-content button#cancelBtn {
-  background: transparent;
-  color: var(--muted);
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  text-align: left;
-}
-
-/* === FOOTER === */
-.app-footer {
-  background: var(--card-bg);
-  border-top: 1px solid var(--border);
-  padding: 16px 0;
-  text-align: center;
-  margin-top: 40px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === PRIORITY STYLES === */
-.card.high-priority {
-  border-left: 4px solid #ff5630;
-}
-
-.card.medium-priority {
-  border-left: 4px solid #ffab00;
-}
-
-.card.low-priority {
-  border-left: 4px solid #36b37e;
-}
-
-.column {
-  position: relative;
-  transition: all 0.2s ease;
-}
-
-.column.empty-column::after {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.column.empty {
-  min-height: 100px;
-  position: relative;
-}
-
-.column.empty::after {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: var(--muted);
-}
-
-.column.highlight {
-  background-color: rgba(0, 82, 204, 0.05);
-  border: 2px dashed var(--primary);
-}
-
-.card.dragging {
-  opacity: 0.5;
-  transform: scale(0.95);
-}
-
-.cards-container {
-  min-height: 300px;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-.column.highlight .cards-container {
-  background-color: rgba(0, 82, 204, 0.05);
-  border: 2px dashed var(--primary);
-}
-
-.card {
-  position: relative;
-}
-
-.delete-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  color: #888;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  z-index: 2;
-}
-
-.delete-btn:hover {
-  color: #ff5630;
-}
-
 /* === CONFIRM MODAL === */
-#confirmModal.hidden {
-  display: none;
-}
-
-#confirmModal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
 #confirmModal .modal-content {
-  background: var(--card-bg);
-  padding: 24px;
-  border-radius: var(--radius);
-  width: 400px;
-  max-width: 90%;
-  box-shadow: var(--shadow);
   text-align: center;
-  animation: fadeIn 0.2s ease;
 }
 
 #confirmModal .modal-actions {
@@ -417,92 +364,23 @@ h1 {
   transform: translateY(0);
 }
 
-.modal-content {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 90%;
-  max-width: 400px;
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transform: translate(-50%, -50%);
-  z-index: 10;
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-#editModal,
-#modal,
-#confirmModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 5;
-}
-
-.toast {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: #333;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.toast.show {
-  opacity: 1;
-}
-
-/* Общий стиль для кнопок */
-button {
-  font-family: inherit;
-  border: none;
-  cursor: pointer;
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-size: 14px;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-
-/* Кнопка Отмена — серая */
-button.cancel-btn {
-  background-color: #e0e0e0;
-  color: #333;
-}
-
-button.cancel-btn:hover {
-  background-color: #cfcfcf;
-}
-
-/* Кнопка Сохранить — зелёная */
-button.save-btn {
-  background-color: #007b4f;
-  color: white;
-}
-
-button.save-btn:hover {
-  background-color: #005d3a;
-}
-
-/* Кнопка редактирования на карточке */
-button.edit-btn {
-  background-color: transparent;
-  color: #007bff;
-  border: none;
-  font-size: 13px;
-  padding: 0;
-  margin-left: 8px;
-  cursor: pointer;
-}
-
-button.edit-btn:hover {
-  text-decoration: underline;
+@keyframes popIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

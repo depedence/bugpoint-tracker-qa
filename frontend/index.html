@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bugpoint Tracker</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
   <link rel="icon" href="src/logo.jpg" type="image/x-icon">
 </head>
 <body>
@@ -62,8 +62,8 @@
           <option value="high">Высокий приоритет</option>
         </select>
 
-        <button type="submit">Сохранить</button>
-        <button type="button" id="cancelEditBtn">Отмена</button>
+        <button type="submit" class="save-btn">Сохранить</button>
+        <button type="button" id="cancelEditBtn" class="cancel-btn">Отмена</button>
       </form>
       </div>
   </div>
@@ -90,8 +90,8 @@
           <option value="high">Высокий приоритет</option>
         </select>
 
-        <button type="submit">Сохранить</button>
-        <button type="button" id="cancelBtn">Отмена</button>
+        <button type="submit" class="save-btn">Сохранить</button>
+        <button type="button" id="cancelBtn" class="cancel-btn">Отмена</button>
       </form>
     </div>
   </div>
@@ -103,7 +103,7 @@
       <p>Вы уверены, что хотите удалить этот тикет?</p>
       <div class="modal-actions">
         <button id="confirmDeleteBtn" class="danger">Удалить</button>
-        <button id="cancelDeleteBtn">Отмена</button>
+        <button id="cancelDeleteBtn" class="cancel-btn">Отмена</button>
       </div>
     </div>
   </div>
