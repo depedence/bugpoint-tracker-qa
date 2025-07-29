@@ -2,7 +2,7 @@
 node_modules
 
 # Хранение багов
-/backend/data
+/backend/data/bugs.json
 
 # Playwright
 /test-results/
