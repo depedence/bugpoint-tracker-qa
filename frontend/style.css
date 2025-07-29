@@ -166,6 +166,10 @@ h1 {
   display: none;
 }
 
+.hidden {
+  display: none !important;
+}
+
 #modal {
   position: fixed;
   inset: 0;
@@ -274,7 +278,6 @@ h1 {
 }
 
 .column.empty-column::after {
-  content: 'Перетащите сюда';
   position: absolute;
   top: 50%;
   left: 0;
@@ -290,7 +293,6 @@ h1 {
 }
 
 .column.empty::after {
-  content: 'Перетащите карточку сюда';
   position: absolute;
   top: 50%;
   left: 0;
@@ -413,4 +415,94 @@ h1 {
 .toast.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 400px;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+#editModal,
+#modal,
+#confirmModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 5;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* Общий стиль для кнопок */
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Кнопка Отмена — серая */
+button.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+button.cancel-btn:hover {
+  background-color: #cfcfcf;
+}
+
+/* Кнопка Сохранить — зелёная */
+button.save-btn {
+  background-color: #007b4f;
+  color: white;
+}
+
+button.save-btn:hover {
+  background-color: #005d3a;
+}
+
+/* Кнопка редактирования на карточке */
+button.edit-btn {
+  background-color: transparent;
+  color: #007bff;
+  border: none;
+  font-size: 13px;
+  padding: 0;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+button.edit-btn:hover {
+  text-decoration: underline;
 }
