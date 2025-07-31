@@ -6,7 +6,7 @@
 
     `git clone https://github.com/depedence/bugpoint-tracker-qa.git`
 
-2. Создайте файл, куда будут сохраняться созданные тикеты
+2. Создайте файл в папке data (если её нет, то создайте папку ../backend/data), куда будут сохраняться созданные тикеты
 
     `touch  backend/data/bugs.json`
 
