@@ -1,9 +1,5 @@
 import { test, expect } from '@playwright/test';
-
-async function tapAddBtn(page) {
-  await page.getByRole('button', { name: '+' }).click();
-  await expect(page.locator('.modal-content').nth(1)).toBeVisible();
-}
+import { tapAddBtn } from './helpers/func';
 
 test.describe('Проверки на добавление бага в левую колонку', () => {
   test.beforeEach(async ({ page }) => {
@@ -19,7 +15,6 @@ test.describe('Проверки на добавление бага в левую
     await page.getByRole('button', { name: 'Сохранить' }).click();
 
     await expect(page.getByRole('heading', { name: 'Открытый низкий' })).toBeVisible();
-    console.log('! Открытый баг низкого приоритета успешно создан !');
   });
 
   test('Добавление ОТКРЫТОГО бага СРЕДНЕГО приоритета', async ({ page }) => {
@@ -34,7 +29,6 @@ test.describe('Проверки на добавление бага в левую
     await page.getByRole('button', { name: 'Сохранить' }).click();
 
     await expect(page.getByRole('heading', { name: 'Открытый средний' })).toBeVisible();
-    console.log('! Открытый баг среднего приоритета успешно создан !');
   });
 
   test('Добавление ОТКРЫТОГО бага ВЫСОКОГО приоритета', async ({ page }) => {
@@ -49,7 +43,6 @@ test.describe('Проверки на добавление бага в левую
     await page.getByRole('button', { name: 'Сохранить' }).click();
 
     await expect(page.getByRole('heading', { name: 'Открытый высокий' })).toBeVisible();
-    console.log('! Открытый баг высокого приоритета успешно создан !');
   });
 
   test('Проверка редактирования ОТКРЫТОГО бага НИЗКОГО приоритета', async ({ page }) => {
