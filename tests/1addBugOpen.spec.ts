@@ -1,12 +1,11 @@
 import { test, expect } from '@playwright/test';
-import { beforeEach } from 'node:test';
 
 async function tapAddBtn(page) {
   await page.getByRole('button', { name: '+' }).click();
   await expect(page.locator('.modal-content').nth(1)).toBeVisible();
 }
 
-test.describe('Проверки на добавление бага @addBug', () => {
+test.describe('Проверки на добавление бага в левую колонку', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
   });
@@ -51,5 +50,27 @@ test.describe('Проверки на добавление бага @addBug', () 
 
     await expect(page.getByRole('heading', { name: 'Открытый высокий' })).toBeVisible();
     console.log('! Открытый баг высокого приоритета успешно создан !');
+  });
+
+  test('Проверка редактирования ОТКРЫТОГО бага НИЗКОГО приоритета', async ({ page }) => {
+    const newName = 'Открытый низкий отредактированный';
+    const newDescription = 'Открытый низкий описание отредактированное';
+
+    await page.getByRole('button', { name: 'Редактировать' }).first().click();
+    await expect(page.getByRole('heading', { name: 'Редактировать баг' })).toBeVisible();
+
+    // ! Меняем данные тикета (название, описание, статус, приоритет) и сохраняем
+    await page.getByRole('textbox', { name: 'Название бага' }).fill(newName);
+    await page.getByRole('textbox', { name: 'Описание бага' }).fill(newDescription);
+    await page.locator('#editStatus').click();
+    await page.locator('#editStatus').selectOption('closed');
+    await page.locator('#editPriority').click();
+    await page.locator('#editPriority').selectOption('high');
+    await page.getByRole('button', { name: 'Сохранить' }).click();
+    await expect(page.getByText('Тикет обновлён')).toBeVisible();
+
+    // ! Проверяем, что тикет обновился
+    await expect(page.getByText(newName)).toBeVisible();
+    await expect(page.getByText(newDescription)).toBeVisible();
   });
 });
