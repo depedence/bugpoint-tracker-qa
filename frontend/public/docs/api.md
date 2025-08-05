@@ -14,14 +14,14 @@ http://localhost:5000/api/bugs
 
 ```json
 [
-  {
-    "id": "abc123",
-    "title": "Ошибка в форме",
-    "description": "Не отображается кнопка",
-    "priority": "high",
-    "status": "open",
-    "createdAt": "2025-06-25T10:00:00.000Z"
-  }
+    {
+        "id": "abc123",
+        "title": "Ошибка в форме",
+        "description": "Не отображается кнопка",
+        "priority": "high",
+        "status": "open",
+        "createdAt": "2025-06-25T10:00:00.000Z"
+    }
 ]
 ```
 
@@ -33,10 +33,10 @@ http://localhost:5000/api/bugs
 
 ```json
 {
-  "title": "Тестовый баг",
-  "description": "Описание тестового бага",
-  "status": "open",
-  "priority": "low"
+    "title": "Тестовый баг",
+    "description": "Описание тестового бага",
+    "status": "open",
+    "priority": "low"
 }
 ```
 
@@ -44,14 +44,14 @@ http://localhost:5000/api/bugs
 
 ```json
 [
-  {
-    "id": "50c8edf9-450b-4b83-9771-2b5137aa1a8a",
-    "title": "Тестовый баг",
-    "description": "Описание тестового бага",
-    "status": "open",
-    "priority": "low",
-    "createdAt": "2025-07-03T11:30:35.796Z"
-  }
+    {
+        "id": "50c8edf9-450b-4b83-9771-2b5137aa1a8a",
+        "title": "Тестовый баг",
+        "description": "Описание тестового бага",
+        "status": "open",
+        "priority": "low",
+        "createdAt": "2025-07-03T11:30:35.796Z"
+    }
 ]
 ```
 
@@ -63,7 +63,7 @@ http://localhost:5000/api/bugs
 
 ```json
 {
-  "id": "{{bugId}}"
+    "id": "{{bugId}}"
 }
 ```
 
@@ -71,6 +71,6 @@ http://localhost:5000/api/bugs
 
 ```json
 {
-  "message": "Bug deleted successfully"
+    "message": "Bug deleted successfully"
 }
 ```

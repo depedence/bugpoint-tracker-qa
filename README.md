@@ -4,27 +4,27 @@
 
 1. Скопируйте себе на устройство репозиторий
 
-   `git clone https://github.com/depedence/bugpoint-tracker-qa.git`
+    `git clone https://github.com/depedence/bugpoint-tracker-qa.git`
 
 2. Создайте файл в папке data (если её нет, то создайте папку ../backend/data), куда будут сохраняться созданные тикеты
 
-   `touch  backend/data/bugs.json`
+    `touch  backend/data/bugs.json`
 
 3. Установите зависимости
 
-   `npm install`
+    `npm install`
 
 4. Установите Chromium для Playwright тестов
 
-   `npx playwright install`
+    `npx playwright install`
 
 5. Команды запуска
 
-   `npm run start:backend` - запуск бэкэнда
+    `npm run start:backend` - запуск бэкэнда
 
-   `npm run start:frontend` - запуск фронтэнда
+    `npm run start:frontend` - запуск фронтэнда
 
-   `npm run dev` - запуск всего проекта
+    `npm run dev` - запуск всего проекта
 
 ## Функции и возможности bugpoint Tracker
 

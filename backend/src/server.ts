@@ -18,16 +18,16 @@ app.use('/api/bugs', bugsRouter); // Подключение роутера
 
 // Проверочный маршрут
 app.get('/', (req, res) => {
-  res.send('Bugpoint Tracker API is running!');
+    res.send('Bugpoint Tracker API is running!');
 });
 
 process.on('uncaughtException', (err) => {
-  console.error('💥 SERVER DOWN:', err);
+    console.error('💥 SERVER DOWN:', err);
 });
 
 // Старт сервера
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
 
 process.stdin.resume();
