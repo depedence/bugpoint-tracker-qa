@@ -6,12 +6,12 @@
 
 ```json
 {
-  "id": "abc123",
-  "title": "Ошибка при регистрации",
-  "description": "Не приходит подтверждение на email",
-  "status": "open",
-  "priority": "high",
-  "createdAt": "2025-06-25T14:30:00.000Z"
+    "id": "abc123",
+    "title": "Ошибка при регистрации",
+    "description": "Не приходит подтверждение на email",
+    "status": "open",
+    "priority": "high",
+    "createdAt": "2025-06-25T14:30:00.000Z"
 }
 ```
 
