@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { tapAddBtn } from './helpers/func';
+import { tapAddBtn } from '../helpers/func';
 
 test.describe('Проверки на добавление бага в правую колонку', () => {
     test.beforeEach(async ({ page }) => {

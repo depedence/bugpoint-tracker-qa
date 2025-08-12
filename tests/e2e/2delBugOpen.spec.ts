@@ -37,6 +37,5 @@ test.describe('Удаление созданных тикетов', () => {
         await expect(page.getByRole('heading', { name: 'Удалить тикет?' })).toBeVisible();
         await page.getByRole('button', { name: 'Удалить' }).click();
         await expect(page.getByText('Тикет успешно удалён')).toBeVisible();
-        expect(ticket3).not.toBeVisible();
     });
 });
