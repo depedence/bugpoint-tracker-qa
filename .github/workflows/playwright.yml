@@ -18,6 +18,7 @@ jobs:
             - uses: actions/checkout@v4
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
@@ -28,6 +29,12 @@ jobs:
                   node-version: '20'
                   cache: 'npm'
 >>>>>>> ff1b756 (fix CI/CD)
+=======
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+>>>>>>> 8c4d45d (test ci/cd)
 
             - name: Cache Playwright browsers
               uses: actions/cache@v3
@@ -42,14 +49,20 @@ jobs:
               run: npm ci
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8c4d45d (test ci/cd)
             - name: Create bugs.json
               run: touch backend/data/bugs.json
 
             - name: Run project
               run: npm run dev
 
+<<<<<<< HEAD
 =======
 >>>>>>> ff1b756 (fix CI/CD)
+=======
+>>>>>>> 8c4d45d (test ci/cd)
             - name: Install Playwright browsers
               if: steps.cache-playwright.outputs.cache-hit != 'true'
               run: npx playwright install --with-deps
