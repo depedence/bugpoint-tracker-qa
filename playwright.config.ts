@@ -1,7 +1,19 @@
 import { defineConfig, devices } from '@playwright/test';
+import { OutputFileType } from 'typescript';
 
 export default defineConfig({
-    reporter: [['list'], ['html'], ['allure-playwright']],
+    reporter: [
+        ['list'],
+        ['html'],
+        [
+            'allure-playwright',
+            {
+                outputFolder: 'allure-results',
+                detail: true,
+                suiteTitle: false,
+            },
+        ],
+    ],
 
     testDir: './tests',
 
