@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { BugTrackerPage } from '../pages/bugTrackerPage';
+import { TICKET } from '../fixtures/bugTrackerFixtures';
 
 test.describe('Удаление созданных тикетов', () => {
     test.beforeEach(async ({ page }) => {
@@ -6,39 +8,20 @@ test.describe('Удаление созданных тикетов', () => {
     });
 
     test('Удаление первого тикета СРЕДНЕГО приоритета', async ({ page }) => {
-        const ticket1 = page.getByText(
-            'x Редактировать Открытый средний Открытый средний описание Приоритет: medium'
-        );
+        const BTP = new BugTrackerPage(page);
 
-        await expect(ticket1).toBeVisible();
-        await page.getByRole('button', { name: 'x' }).first().click();
-        await expect(page.getByRole('heading', { name: 'Удалить тикет?' })).toBeVisible();
-        await page.getByRole('button', { name: 'Удалить' }).click();
-        await expect(page.getByText('Тикет успешно удалён')).toBeVisible();
-        await expect(ticket1).not.toBeVisible();
+        await BTP.deleteBug(TICKET.openCardMed);
     });
 
     test('Удаление второго тикета ВЫСОКОГО приоритета', async ({ page }) => {
-        const ticket2 = page.getByText(
-            'x Редактировать Открытый высокий Открытый высокий описание Приоритет: high'
-        );
+        const BTP = new BugTrackerPage(page);
 
-        await expect(ticket2).toBeVisible();
-        await page.getByRole('button', { name: 'x' }).first().click();
-        await expect(page.getByRole('heading', { name: 'Удалить тикет?' })).toBeVisible();
-        await page.getByRole('button', { name: 'Удалить' }).click();
-        await expect(page.getByText('Тикет успешно удалён')).toBeVisible();
-        await expect(ticket2).not.toBeVisible();
+        await BTP.deleteBug(TICKET.openCardHigh);
     });
 
     test('Удаление отредактированного тикета из правой колонки', async ({ page }) => {
-        const ticket3 = page.getByText('x Редактировать Открытый низкий отредактированный');
+        const BTP = new BugTrackerPage(page);
 
-        await expect(ticket3).toBeVisible();
-        await page.getByRole('button', { name: 'x' }).first().click();
-        await expect(page.getByRole('heading', { name: 'Удалить тикет?' })).toBeVisible();
-        await page.getByRole('button', { name: 'Удалить' }).click();
-        await expect(page.getByText('Тикет успешно удалён')).toBeVisible();
-        await expect(ticket3).not.toBeVisible();
+        await BTP.deleteBug(TICKET.openCardLow);
     });
 });

@@ -8,9 +8,12 @@ export class BugTrackerPage {
     private descriptionInput: Locator;
     private saveBtn: Locator;
     private prioritySelect: Locator;
+    private statusSelect: Locator;
     private editBtn: Locator;
     private editStatusSelect: Locator;
     private editPrioritySelect: Locator;
+    private deleteBtn: Locator;
+    private successDelete: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -20,12 +23,20 @@ export class BugTrackerPage {
         this.descriptionInput = page.getByRole('textbox', { name: 'Описание бага' });
         this.saveBtn = page.getByRole('button', { name: 'Сохранить' });
         this.prioritySelect = page.locator('#priority');
+        this.statusSelect = page.locator('#status');
         this.editBtn = page.getByRole('button', { name: 'Редактировать' });
         this.editStatusSelect = page.locator('#editStatus');
         this.editPrioritySelect = page.locator('#editPriority');
+        this.deleteBtn = page.getByRole('button', { name: 'x' }).first();
+        this.successDelete = page.getByRole('button', { name: 'Удалить' });
     }
 
-    async addBug(name: string, description: string, priority: string = 'low'): Promise<void> {
+    async addBug(
+        name: string,
+        description: string,
+        priority: string = 'low',
+        status: string = 'open'
+    ): Promise<void> {
         await this.addBtn.click();
         await this.nameInput.fill(name);
         await this.descriptionInput.fill(description);
@@ -35,8 +46,13 @@ export class BugTrackerPage {
             await this.prioritySelect.selectOption(priority);
         }
 
+        if (status !== 'open') {
+            await this.statusSelect.click();
+            await this.statusSelect.selectOption(status);
+        }
+
         await this.saveBtn.click();
-        await expect(this.page.getByRole('heading', { name })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: name })).toBeVisible();
     }
 
     async editBug(
@@ -59,5 +75,14 @@ export class BugTrackerPage {
         await expect(this.page.getByText('Тикет обновлён')).toBeVisible();
         await expect(this.page.getByText(newName)).toBeVisible();
         await expect(this.page.getByText(newDescription)).toBeVisible();
+    }
+
+    async deleteBug(ticketName: string): Promise<void> {
+        await expect(this.page.getByText(ticketName)).toBeVisible();
+        await this.deleteBtn.click();
+        await expect(this.page.getByRole('heading', { name: 'Удалить тикет?' })).toBeVisible();
+        await this.successDelete.click();
+        await expect(this.page.getByText('Тикет успешно удалён')).toBeVisible();
+        await expect(this.page.getByText(ticketName)).not.toBeVisible();
     }
 }

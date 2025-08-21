@@ -8,15 +8,15 @@ test.describe('Проверки на добавление бага в левую
     });
 
     test('Добавление ОТКРЫТОГО бага НИЗКОГО приоритета', async ({ page }) => {
-        const BPT = new BugTrackerPage(page);
+        const BTP = new BugTrackerPage(page);
 
-        await BPT.addBug(TICKET.openLowTicketName, TICKET.openLowTicketDescription);
+        await BTP.addBug(TICKET.openLowTicketName, TICKET.openLowTicketDescription);
     });
 
     test('Добавление ОТКРЫТОГО бага СРЕДНЕГО приоритета', async ({ page }) => {
-        const BPT = new BugTrackerPage(page);
+        const BTP = new BugTrackerPage(page);
 
-        await BPT.addBug(
+        await BTP.addBug(
             TICKET.openMedTicketName,
             TICKET.openMedTicketDescription,
             TICKET.medPriority
@@ -24,9 +24,9 @@ test.describe('Проверки на добавление бага в левую
     });
 
     test('Добавление ОТКРЫТОГО бага ВЫСОКОГО приоритета', async ({ page }) => {
-        const BPT = new BugTrackerPage(page);
+        const BTP = new BugTrackerPage(page);
 
-        await BPT.addBug(
+        await BTP.addBug(
             TICKET.openHighTicketName,
             TICKET.openHighTicketDescription,
             TICKET.highPriority
@@ -34,12 +34,12 @@ test.describe('Проверки на добавление бага в левую
     });
 
     test('Проверка редактирования ОТКРЫТОГО бага НИЗКОГО приоритета', async ({ page }) => {
-        const BPT = new BugTrackerPage(page);
+        const BTP = new BugTrackerPage(page);
 
-        await BPT.editBug(
+        await BTP.editBug(
             TICKET.editTicketName,
             TICKET.editTicketDescription,
-            TICKET.status,
+            TICKET.statusClose,
             TICKET.lowPriority
         );
     });
