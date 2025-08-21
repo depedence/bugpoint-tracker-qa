@@ -3,7 +3,7 @@ import { tapAddBtn } from '../helpers/func';
 
 test.describe('Проверки на добавление бага в правую колонку', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
     });
 
     test('Добавление ЗАКРЫТОГО бага НИЗКОГО приоритета', async ({ page }) => {
