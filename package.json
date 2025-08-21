@@ -9,6 +9,12 @@
         "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
         "prettier": "npx prettier --write .",
         "test": "npx playwright test",
+<<<<<<< HEAD
+        "test:api": "npx bru run",
+=======
+        "test:api": "cd tests/BrunoTests && npx bru run",
+>>>>>>> 44aed59 (comment api bruno tests, update readme)
+        "test:ui": "npx playwright test --ui",
         "test:report": "npx playwright test && allure generate ./allure-results --clean && allure open ./allure-report",
         "allure:generate": "allure generate ./allure-results --clean",
         "allure:open": "allure open ./allure-report"
@@ -31,6 +37,7 @@
         "@types/morgan": "^1.9.10",
         "@types/node": "^24.0.4",
         "@types/uuid": "^10.0.0",
+        "@usebruno/cli": "^2.9.1",
         "allure-commandline": "^2.34.1",
         "allure-playwright": "^3.3.3",
         "concurrently": "^9.2.0",

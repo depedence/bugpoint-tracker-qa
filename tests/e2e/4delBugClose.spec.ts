@@ -1,35 +1,27 @@
 import { test, expect } from '@playwright/test';
+import { TICKET } from '../fixtures/bugTrackerFixtures';
+import { BugTrackerPage } from '../pages/bugTrackerPage';
 
 test.describe('Удаление созданных тикетов', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
     });
 
-    test('Удаление тикетов с колонки ЗАКРЫТЫЕ БАГИ', async ({ page }) => {
-        // ! Завернём тикеты в константы для удобства
-        const ticket1 = await page.getByText('x Редактировать Закрытый низкий Закрытый низкий');
-        const ticket2 = await page.getByText('x Редактировать Закрытый средний Закрытый средний');
-        const ticket3 = await page.getByText('x Редактировать Закрытый высокий Закрытый высокий');
+    test('Удаление первого тикета НИЗКОГО приоритета', async ({ page }) => {
+        const BTP = new BugTrackerPage(page);
 
-        // ! Удаление первого тикета СРЕДНЕГО приоритета
-        expect(ticket1).toBeVisible();
-        await page.getByRole('button', { name: 'x' }).first().click();
-        await expect(page.getByRole('heading', { name: 'Удалить тикет?' })).toBeVisible();
-        await page.getByRole('button', { name: 'Удалить' }).click();
-        await expect(page.getByText('Тикет успешно удалён')).toBeVisible();
+        await BTP.deleteBug(TICKET.closeCardLow);
+    });
 
-        // ! Удаление второго тикета ВЫСОКОГО приоритета
-        expect(ticket2).toBeVisible();
-        await page.getByRole('button', { name: 'x' }).first().click();
-        await expect(page.getByRole('heading', { name: 'Удалить тикет?' })).toBeVisible();
-        await page.getByRole('button', { name: 'Удалить' }).click();
-        await expect(page.getByText('Тикет успешно удалён')).toBeVisible();
+    test('Удаление второго тикета СРЕДНЕГО приоритета', async ({ page }) => {
+        const BTP = new BugTrackerPage(page);
 
-        // ! Удаление отредактированного тикета из правой колонки
-        expect(ticket3).toBeVisible();
-        await page.getByRole('button', { name: 'x' }).first().click();
-        await expect(page.getByRole('heading', { name: 'Удалить тикет?' })).toBeVisible();
-        await page.getByRole('button', { name: 'Удалить' }).click();
-        await expect(page.getByText('Тикет успешно удалён')).toBeVisible();
+        await BTP.deleteBug(TICKET.closeCardMed);
+    });
+
+    test('Удаление отретьего тикета ВЫСОКГО приоритета', async ({ page }) => {
+        const BTP = new BugTrackerPage(page);
+
+        await BTP.deleteBug(TICKET.closeCardHigh);
     });
 });
