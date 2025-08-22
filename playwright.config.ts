@@ -3,7 +3,7 @@ import { OutputFileType } from 'typescript';
 
 export default defineConfig({
     reporter: [
-        ['list'],
+        ['list'], // Вывод Allure отчета в консоль
         ['html'],
         [
             'allure-playwright',
